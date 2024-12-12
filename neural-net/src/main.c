@@ -44,6 +44,7 @@ int main(int argc, char** argv) {
 	neural_net_randomize_weights(&nn1);
 	neural_net_print(&nn1);
 */
+/*
 	printf("matrix multiply test\n");
 	MAKE_MATRIX(m1, 3, 1, 1, 2, 3);
 	matrix_print(&m1);
@@ -71,4 +72,14 @@ int main(int argc, char** argv) {
 	neural_net_print(&brain);
 	printf("m_output state\n");
 	matrix_print(&m_output);
+*/
+
+	printf("matrix transpose\n");
+	MAKE_MATRIX(m1, 3, 2, 1, 2, 3, 4, 5, 6);
+	Matrix m2 = {0};
+	matrix_transpose(&m1, &m2);
+	printf("m1\n");
+	matrix_print(&m1);
+	printf("\nm2\n");
+	matrix_print(&m2);
 }

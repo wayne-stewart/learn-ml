@@ -69,7 +69,11 @@ double matrix_get(Matrix* m, int row, int col) {
 void matrix_multiply(Matrix* m1, Matrix* m2, Matrix* m_result) {
 	//assert(m1->rows == m2->cols);
 	assert(m1->cols == m2->rows);
-	matrix_make(m_result, m1->rows, m2->cols);
+	if (m_result->data == 0) {
+		matrix_make(m_result, m1->rows, m2->cols);
+	}
+	assert(m_result->rows == m1->rows);
+	assert(m_result->cols == m2->cols);
 	for (int row = 0; row < m_result->rows; row++) {
 		for (int col = 0; col < m_result->cols; col++) {
 			double v = 0;
@@ -80,6 +84,21 @@ void matrix_multiply(Matrix* m1, Matrix* m2, Matrix* m_result) {
 				v += c;
 			}
 			matrix_set(m_result, row, col, v);
+		}
+	}
+}
+
+void matrix_transpose(Matrix* m_in, Matrix* m_result) {
+	if (m_result->data == 0) {
+		matrix_make(m_result, m_in->cols, m_in->rows);
+	}
+	assert(m_in->rows == m_result->cols);
+	assert(m_in->cols == m_result->rows);
+	for (int in_row = 0; in_row < m_in->rows; in_row++) {
+		for (int in_col = 0; in_col < m_in->cols; in_col++) {
+			int t_row = in_col;
+			int t_col = in_row;
+			matrix_set(m_result, t_row, t_col, matrix_get(m_in, in_row, in_col));
 		}
 	}
 }
