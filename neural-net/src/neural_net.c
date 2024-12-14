@@ -43,9 +43,12 @@ void neural_net_randomize_weights(NeuralNet* nn) {
 	int weights_count = nn->layer_count - 1;
 	for (int i = 0; i < weights_count; i++) {
 		Matrix* w = &nn->weights[i];
+		int node_count_in_layer = nn->layers[i].cols;
+		double sigma = pow(node_count_in_layer, -0.5);
 		for (int j = 0; j < (w->rows * w->cols); j++) {
-			double x = rand();
-			w->data[j] = x / RAND_MAX;
+			//double x = rand();
+			//w->data[j] = x / RAND_MAX;
+			w->data[j] = randn(0.0, sigma);
 		}
 	}
 }

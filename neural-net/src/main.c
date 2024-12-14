@@ -4,7 +4,7 @@
 #include <time.h>
 #include <assert.h>
 
-#define UNUSED_PARAMETER(x) (void)x
+#define UNUSED(x) (void)x
 #define ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
 #include "math.c"
@@ -12,8 +12,8 @@
 #include "neural_net.c"
 
 int main(int argc, char** argv) {
-	UNUSED_PARAMETER(argc);
-	UNUSED_PARAMETER(argv);
+	UNUSED(argc);
+	UNUSED(argv);
 
 	srand(time(0));
 
@@ -37,13 +37,13 @@ int main(int argc, char** argv) {
 	matrix_sigmoid(&m3);
 	matrix_print(&m3);
 */
-/*
+
 	MAKE_NEURAL_NET(nn1, 3, 3, 3);
 	NEURAL_NET_SET_INPUT(nn1, 0.1, 0.2, 0.3);
 	NEURAL_NET_SET_WEIGHTS(nn1, 0, 1,2,3,4,5,6,7,8,9);
 	neural_net_randomize_weights(&nn1);
 	neural_net_print(&nn1);
-*/
+
 /*
 	printf("matrix multiply test\n");
 	MAKE_MATRIX(m1, 3, 1, 1, 2, 3);
@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
 	printf("m_output state\n");
 	matrix_print(&m_output);
 */
-
+/*
 	printf("matrix transpose\n");
 	MAKE_MATRIX(m1, 3, 2, 1, 2, 3, 4, 5, 6);
 	Matrix m2 = {0};
@@ -82,4 +82,5 @@ int main(int argc, char** argv) {
 	matrix_print(&m1);
 	printf("\nm2\n");
 	matrix_print(&m2);
+*/
 }
