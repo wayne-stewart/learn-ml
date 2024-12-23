@@ -79,6 +79,47 @@ void neural_net_query(NeuralNet* nn, Matrix* m_input, Matrix* m_output) {
 	matrix_copy(&nn->layers[nn->layer_count - 1], m_output);
 }
 
+void neural_net_train(
+	NeuralNet* nn, 
+	double learning_rate,
+	int sample_count,
+	Matrix** inputs,
+	Matrix** targets) {
+	
+	assert(nn->layer_count > 1);
+	assert(sample_count > 0);
+
+	Matrix* input_layer = &nn->layers[0];
+	Matrix* output_layer = &nn->layers[nn->layer_count - 1];
+	Matrix* error = {0};
+	matrix_make(&error, output_layer->rows, output_layer->cols);
+	
+	// loop through all training samples to train the 
+	// neural network weights
+	for (int i_sample; i_sample < sample_count; i_sample++) {
+		Matrix* sample_input = &inputs[i_sample];
+		Matrix* sample_target = &targets[i_sample];
+
+		// copy the input sample into the neural network input layer 
+		matrix_copy(sample_input, input_layer);
+
+		// query the neural network with the sample input and current weights
+		neural_net_process(nn);
+
+		// back propagation
+		// work backwards from the output layer to compute the layer
+		// error and weight updates
+		for (int i_layer = nn->layer_count; i_layer >= 0; i_layer--) {
+			// compute error
+			Matrix* layer = nn->layers[i_layer];
+			Matrix* weights = nn->weights[i_layer - 1];
+			// update weights
+		}
+	}
+
+	matrix_destroy(&m_error);
+}
+
 void neural_net_print(NeuralNet* nn) {
 	int weight_count = nn->layer_count - 1;
 	for (int i_layer = 0; i_layer < nn->layer_count; i_layer++) {
